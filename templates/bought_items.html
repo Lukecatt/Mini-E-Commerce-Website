@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bought Items</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/media/favicon.ico"/>
+    <link rel="stylesheet" href="/media/bootstrap-4.4.1/css/bootstrap.min.css">
+    <script src="/media/jquery-3.4.1/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+    <script src="/media/bootstrap-4.4.1/js/bootstrap.js"></script>
+    <script src="/static/isSelenium.js"></script>
+</head>
+{% include 'nav_bar.html' %}
+<style>
+    .status{
+        margin-left: 10vw;
+        margin-right: 10vw;
+        font-size: 26pt;
+        background-color: #a6b7d7;
+        margin-top:2vh;
+        border-radius: 5px;
+        padding-top: 2%;
+        padding-bottom:2%;
+        font-weight: bold;
+    }
+</style>
+<body>
+<hr>
+<p align="center" class="status">{{ status }}</p>
+{% for order in orders %}
+    {% if order.item.isSelling %}
+    <a href="{{ url }}item/{{ order.item.id }}" style="color: black">
+    {% else %}
+    <a href="{{ url }}item/{{ order.item.id }}" style="color: gray">
+    {% endif %}
+        <img src="/media/{{ order.item.picture }}" width="100px" height="100px">{{ order.item.name }}</a>
+    <br>Time Bought:{{ order.time }}<br>Qty: {{ order.qty }}<br>Spent: {{ order.price }}<hr>
+{% endfor %}
+</body>
+</html>

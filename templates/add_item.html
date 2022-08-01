@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/media/favicon.ico"/>
+    <link rel="stylesheet" href="/media/bootstrap-4.4.1/css/bootstrap.min.css">
+    <script src="/media/jquery-3.4.1/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+    <script src="/media/bootstrap-4.4.1/js/bootstrap.js"></script>
+    <script src="/static/isSelenium.js"></script>
+    <title>Add New Item</title>
+</head>
+{% include 'nav_bar.html' %}
+<script>
+    function clearNoNum(obj){
+        obj.value = obj.value.replace('-','');
+        obj.value = obj.value.replace(/[^\d.]/g,"");  //清除“数字”和“.”以外的字符
+        obj.value = obj.value.replace(/^\./g,"");  //验证第一个字符是数字而不是.
+        obj.value = obj.value.replace(/\.{2,}/g,"."); //只保留第一个. 清除多余的.
+        obj.value = obj.value.replace(".","$#$").replace(/\./g,"").replace("$#$",".");
+        obj.value = obj.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3');
+    }
+    function clearNegative(obj)
+    {
+        obj.value = obj.value.replace('-','')
+    }
+
+</script>
+<body>
+<form method="post" style="font-size: 16pt; margin-left:41vw" enctype="multipart/form-data">
+    <label><b>Name:</b></label><br>
+    <input type="text" placeholder="Name" width="10vw" name="name" maxlength="20" required><br>
+    <label><b>Price:</b></label><br>
+    <input type="text" oninput="clearNoNum(this)" placeholder="Price" name="price" maxlength="8"><br>
+
+        <label ><b>Picture:</b></label><br>
+        <input type="file" style="font-size: medium" accept="image/png, image/jpeg, image/gif, image/jpg" name="img" id="img" required><br>
+    <label><b>Stock:</b></label><br>
+    <input type="number" name="stock" oninput="clearNegative(this)" max="10000000000"><br>
+    <label><b>Description:</b></label><br>
+    <textarea style="margin-top:10px; width:30vw; height: 20vh" name="description" required></textarea><br>
+    <input type="submit" class="btn btn-success">{{ status }}
+</form>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add More Money</title>
+    <link rel="icon" href="/media/favicon.ico"/>
+    <link rel="stylesheet" href="/media/bootstrap-4.4.1/css/bootstrap.min.css">
+    <script src="/media/jquery-3.4.1/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+    <script src="/media/bootstrap-4.4.1/js/bootstrap.js"></script>
+    <script src="/static/isSelenium.js"></script>
+
+</head>
+{% include 'nav_bar.html' %}
+<script>
+    function clearNoNum(obj){
+        obj.value = obj.value.replace(/[^\d.]/g,"");  //清除“数字”和“.”以外的字符
+        obj.value = obj.value.replace(/^\./g,"");  //验证第一个字符是数字而不是.
+        obj.value = obj.value.replace(/\.{2,}/g,"."); //只保留第一个. 清除多余的.
+        obj.value = obj.value.replace(".","$#$").replace(/\./g,"").replace("$#$",".");
+        obj.value = obj.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3');
+    }
+
+    function addMoney(obj)
+    {
+        var text = parseInt(obj.innerText);
+        var input = document.getElementById("amount");
+        var total = text+parseFloat(input.value);
+        input.value = total;
+    }
+</script>
+<body>
+<h1 style="text-align: center;margin-top:10vh">Your money: {{ money }}</h1>
+<div class="buttons" style="text-align:center;margin-bottom:12px">
+    <button class="btn btn-outline-info" onclick="addMoney(this)" name="1000">1000</button>
+    <button class="btn btn-outline-info" onclick="addMoney(this)" name="2000">2000</button>
+    <button class="btn btn-outline-info" onclick="addMoney(this)" name="5000">5000</button>
+    <button class="btn btn-outline-info" onclick="addMoney(this)" name="10000">10000</button>
+    <button class="btn btn-outline-info" onclick="addMoney(this)" name="50000">50000</button>
+</div>
+
+<form method="post" style="text-align: center">
+    <input type="text" name="amount" id="amount" oninput="clearNoNum(this)" value="1000">
+    <button class="btn btn-success">Submit</button>
+    <h3>{{ status }}</h3>
+</form>
+
+</body>
+</html>

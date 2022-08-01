@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/media/favicon.ico"/>
+    <link rel="stylesheet" href="/media/bootstrap-4.4.1/css/bootstrap.min.css">
+    <script src="/media/jquery-3.4.1/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+    <script src="/media/bootstrap-4.4.1/js/bootstrap.js"></script>
+    <script src="/static/isSelenium.js"></script>
+    <title>{{ request.session.username }}</title>
+</head>
+<body>
+{% include 'nav_bar.html' %}
+<div class="user-info" style="margin-left: 20vw">
+    <h1>{{ request.session.username }}</h1>
+    <span class="profile">
+        {% if request.session.is_buyer  %}
+        <h2>Buyer</h2>
+        {% endif %}
+        {% if not request.session.is_buyer %}
+        <h3>Seller</h3>
+        {% endif %}
+        <span style="font-size:1.3em">Money: {{ money }}</span><button class="btn-success btn" onclick="window.location.href='{{ url }}add_money.html/'">Add money</button>
+        <div style="font-size:10pt">The "money" is not actual money. You can have as much money as you want.</div><br>
+        <button class="btn btn-primary" onclick="window.location.href='{{ url }}bought_items.html/'">Bought Items</button>
+    <br>
+    </span>
+    <form method="post">
+        <button class="btn btn-outline-danger" style="width:20vw;height:5vh;position:absolute;bottom:8vh;left:40vw">Log Out</button>
+    </form>
+</div>
+
+</body>
+</html>

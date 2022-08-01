@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cart</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/media/favicon.ico"/>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="/static/isSelenium.js"></script>
+    <script src="https://kit.fontawesome.com/00c4138791.js" crossorigin="anonymous"></script>
+</head>
+{% include 'nav_bar.html' %}
+<script>
+    function total() {
+        let total = 0;
+        let checked = false
+        {% for order in orders %}
+            try {
+                if (document.getElementById('{{ order.item.id }}').checked) {
+                checked = true;
+                let qty = document.getElementById('{{ order.item.id }}qty').value;
+                let price = document.getElementById('{{ order.item.id }}price').innerText;
+                total = (parseFloat(total)+parseFloat(qty*price)).toFixed(2);
+            }
+            }
+            catch{
+                console.log('empty item')
+            }
+        {% endfor %}
+        document.getElementById('totalMoney').innerText = total;
+        if (checked){
+            document.getElementsByName('submit')[0].hidden = false;
+        }
+        else{
+            document.getElementsByName('submit')[0].hidden = true;
+        }
+    }
+</script>
+{% if status %}
+    <script>
+        alert('{{ status }}')
+    </script>
+{% endif %}
+<div>
+<div class="wrapper" style="margin-right: 10vw">
+    <h1 align="center" style="margin-left: 10vw">Cart</h1>
+
+	</tr>
+       {% if orders %}
+           <form method="post">
+	        <table border="0" cellspacing="10" cellpadding="15" align="center">
+	<tr align="center">
+		<th></th>
+		<th>Quantity</th>
+		<th>Picture</th>
+		<th>Name</th>
+		<th>Price</th>
+       {% for order in orders %}
+			<tr align="center">
+				<td><input type="checkbox" id="{{ order.item.id }}" name="{{ order.item.id }}" style="margin-left: 5vw" oninput="total()"></td>
+				<td><input type="number" name="{{ order.item.id }}qty" id="{{ order.item.id }}qty"
+					   style="width:2.5vw; margin-left:1vw" max="{{ order.item.stock }}" value="{{ order.qty }}" oninput="total()" min="1"></td>
+				<td>
+					<a style="color:black;margin-left: 1.5vw" href="{{ url }}item/{{ order.item.id }}"><img width="100px" height="100px" src="/media/{{ order.item.picture }}"></a>
+				</td>
+				<td>
+					<a style="color:black;margin-left: 1.5vw" href="{{ url }}item/{{ order.item.id }}">{{ order.item.name }}</a>
+				</td>
+				<td>
+					<a style="color:black;margin-left: 1.5vw" href="{{ url }}item/{{ order.item.id }}"><i><span id="{{ order.item.id }}price">{{ order.item.price }}</span></i></a>
+				</td>
+                <td>
+                    <form method="post">
+                    <button class="btn btn-danger" name="{{ order.item.id }}delete"><i class="fas fa-trash"></i></button>
+                    </form>
+                </td>
+				<br>
+			</tr>
+        {% endfor %}
+           </table>
+        <span style="margin-bottom:5vh"></span>
+        <div class="submit" style="padding: 1.5vh 38vw 1.5vh 38vw; background-color:#DCDCDC; margin-left:10vw; position:fixed; bottom:1vh">
+        <span style="font-size:1.4em">Total: </span><span id="totalMoney" style="font-size:1.4em">0</span>
+        <button name="submit" class="btn btn-success" style="position: fixed;right:20px ;bottom:2vh; margin-right:15vw" hidden>Confirm</button>
+        </div>
+        </form>
+        {% else %}
+            <div style="text-align: center;font-size:16pt">An empty cart...</div>
+        {% endif %}
+</div>
+</div>
+</body>
+</html>

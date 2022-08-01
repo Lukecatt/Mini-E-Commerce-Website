@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/media/favicon.ico"/>
+    <link rel="stylesheet" href="/media/bootstrap-4.4.1/css/bootstrap.min.css">
+    <script src="/media/jquery-3.4.1/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+    <script src="/media/bootstrap-4.4.1/js/bootstrap.js"></script>
+    <title>Shop Orders</title>
+    <script src="/static/isSelenium.js"></script>
+</head>
+{% include 'nav_bar.html' %}
+<style>
+    .status{
+        margin-left: 10vw;
+        margin-right: 10vw;
+        font-size: 26pt;
+        background-color: #a6b7d7;
+        margin-top:2vh;
+        border-radius: 5px;
+        padding-top: 2%;
+        padding-bottom:2%;
+        font-weight: bold;
+    }
+    .items{
+
+    }
+</style>
+<body>
+<p align="center" class="status">{{ status }}</p>
+<div class="items">
+{% for order in orders %}
+    {% if order.item.isSelling %}
+    <a href="{{ url }}item/{{ order.item.id }}" style="color:black">
+        <img src="/media/{{ order.item.picture }}" width="100px" height="100px">{{ order.item.name }}      <i>Price: {{ order.item.price }}</i>
+    </a><br>
+    {% else %}
+        <a href="{{ url }}item/{{ order.item.id }}" style="color:lightslategray">
+            <img src="/media/{{ order.item.picture }}" width="100px" height="100px">{{ order.item.name }}      <i>Price: {{ order.item.price }}</i>
+        </a><br>
+    {% endif %}
+Qty: {{ order.qty }}
+Income: +{{ order.price }}<br>
+Time bought: {{ order.time }}<br>
+{% if order.isBuyer %}
+    Buyer: {{ order.buyerB.username }}
+{% else %}
+    Buyer: {{ order.buyerS.username }}
+{% endif %}
+<hr>
+{% endfor %}
+</div>
+</body>
+</html>

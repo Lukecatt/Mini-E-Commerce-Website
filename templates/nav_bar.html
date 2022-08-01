@@ -1,0 +1,25 @@
+<nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+    <ul class="navbar-nav mx-auto" style="font-size:14pt">
+        <li class="nav-item ">
+            <a class="nav-link" href="{{ url }}">Home</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url }}cart">Cart</a>
+        </li>
+        <li class="nav-item">
+        {% if request.session.is_login %}
+            <a class="nav-link" href="{{ url }}my.html">Account</a>
+        {% endif %}
+        </li>
+        <li class="nav-item">
+        {% if not request.session.is_login %}
+            <a class="nav-link" href="{{ url }}login.html">Login/Register</a>
+        {% endif %}
+        </li>
+        <li class="nav-item">
+        {% if not request.session.is_buyer and request.session.is_login %}
+            <a class="nav-link" href="{{ url }}my_shop.html">My shop</a>
+        {% endif %}
+        </li>
+  </ul>
+</nav>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/media/favicon.ico"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="/static/isSelenium.js"></script>
+    <title>{{ request.session.shop_name }}</title>
+</head>
+<style>
+    .info{
+        text-align: center;
+        margin-top: 10vh;
+    }
+</style>
+<body>
+{% include 'nav_bar.html' %}
+<div class="info">
+{% if not request.session.shop %}
+    <h2>Register your shop</h2>
+    <form method="post">
+        <label>Shop name:</label>
+        <input type="text" name="shop_name" placeholder="shop_name"><br>
+        <button class="btn btn-primary">Submit</button><br>
+        {{ status }}
+    </form>
+{% endif %}
+{% if request.session.shop %}
+<h2>Your shop:{{ request.session.shop_name }}</h2>
+<button class="btn btn-outline-primary" onclick="window.location.href='{{ url }}shop_items.html/'">Items</button>
+<button class="btn btn-outline-success" onclick="window.location.href='{{ url }}shop_orders.html/'">Orders</button>
+{% endif %}
+</div>
+</body>
+</html>

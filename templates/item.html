@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Item</title>
+    <link rel="icon" href="/media/favicon.ico"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="/static/isSelenium.js"></script>
+</head>
+{% include 'nav_bar.html' %}
+<button class="btn btn-success" onclick="window.history.back(-1);">Back</button>
+
+<body>
+<div class="wrapper" style="margin-left:10vw;margin-right:10vw;">
+   <div style="font-size:3vw">{{ name }}</div>
+<img src="/media/{{ picture }}" width="300px" height="300px">
+<span style="font-size:1.3vw">Price: {{ price }}</span>
+    <br>Shop: {{ shop }}  <br><span class="stock">Stock:{{ stock }}</span><br>
+    {% if stock  > 0 and isSelling %}
+    <a href="{{ url }}order/{{ itemId }}-False"><button class="btn btn-primary" style="font-size:1.2vw">Buy</button></a>
+    <a href="{{ url }}order/{{ itemId }}-True"><button class="btn btn-success" style="font-size:1.2vw">Add to cart</button></a>
+    {% endif %}
+    <div class="status" style="font-size: 1.2em">
+        {% if stock == 0 %}
+            <span style="color:red">Out of Stock<br></span>
+        {% elif not isSelling %}
+            Item is not on shelf.
+        {% endif %}
+    </div>
+
+    <hr>
+{{ description }}
+</div>
+
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <link rel="icon" href="/media/favicon.ico"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="/static/isSelenium.js"></script>
+</head>
+<body>
+{% include 'nav_bar.html' %}
+<style>
+    h2{
+        margin-top: 5vh;
+        text-align: center;
+    }
+    form{
+        text-align: center;
+    }
+    input{
+        margin-top:10px;
+        width: 15vw;
+    }
+    .register{
+        width: 15vw;
+    }
+    button{
+        text-align: center;
+        margin-top: 10px;
+    }
+    .login{
+        text-align: center;
+    }
+</style>
+<h2>Register</h2>
+<form method="post">
+    <select name="type">
+        <option>Buyer</option>
+        <option>Seller</option>
+    </select><br>
+    <input type="text" placeholder="Username" name="username" required><br>
+    <input type="password" placeholder="Password" name="password" required><br>
+    <input type="password" placeholder="Confirm password" name="confirm" required><br>
+    <button class="btn btn-success register">Register</button>
+</form>
+<div class="login">
+    <button class="btn btn-outline-primary login" onclick="window.location.href='{{ url }}login.html/'">Login here</button>
+</div>
+<span style="font-size:1.2em; text-align: center">{{ status }}</span>
+</body>
+</html>

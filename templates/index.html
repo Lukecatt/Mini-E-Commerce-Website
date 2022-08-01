@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Mini Ebay</title>
+  <meta charset="utf-8">
+  <link rel="icon" href="/media/favicon.ico"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+  <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <script src="/static/isSelenium.js"></script>
+</head>
+{% include 'nav_bar.html' %}
+<body>
+<br>
+<h1 align="center">Welcome to Lucas' MiniEbay<br><span style="font-size: 0.8em">This project is not for commercial use.</span>
+</h1>
+<span>
+    <form method="post" align="center">
+    <input type="text" placeholder="Search" style="height:4vh; width: 30vw; border-radius:10px" name="search_input"> <button class="btn btn-success">Search</button>
+    </form>
+</span>
+<hr>
+{% if items %}
+<h3 align="center">Featured Items</h3>
+<table border="0" cellspacing="10" cellpadding="10" align="center">
+	<tr align="center">
+		<th>Item</th>
+		<th>Name</th>
+		<th>Price</th>
+		<th>Shop</th>
+	</tr>
+	{% for item in items %}
+		<tr align="center">
+			<td><a style="color: black" href="{{ url }}item/{{ item.id }}"><img width="200px" height="200px" src="/media/{{ item.picture }}"></a></td>
+			<td><a style="color: black" href="{{ url }}item/{{ item.id }}">{{ item.name }}</a></td>
+			<td><a style="color: black" href="{{ url }}item/{{ item.id }}">{{ item.price }}</a></td>
+			<td><a style="color: black" href="{{ url }}item/{{ item.id }}">{{ item.shop.shop_name }}</a></td>
+		</tr>
+	{% endfor %}
+</table>
+{% endif %}
+</body>
+<button style="margin-left:45vw; margin-bottom:2vh" class="btn btn-outline-info" onclick="window.location.href='{{ url }}/developer.html/'">About the developer</button>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search</title>
+    <link rel="icon" href="/media/favicon.ico"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/media/bootstrap-4.4.1/css/bootstrap.min.css">
+    <script src="/media/jquery-3.4.1/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+    <script src="/media/bootstrap-4.4.1/js/bootstrap.js"></script>
+    <script src="/static/isSelenium.js"></script>
+</head>
+{% include 'nav_bar.html' %}
+<script>
+    function changeUrl()
+    {
+        var input = document.getElementsByName("searchInput");
+        window.location.href = '{{ url }}search/'+input;
+    }
+</script>
+<body>
+<span>
+    <form method="post" align="center" style="margin-top:1%">
+    <input type="text" placeholder="Search" style="height:4vh; width: 30vw; border-radius:10px" name="search_input"> <button class="btn btn-success">Search</button>
+    </form>
+</span>
+<span style="font-size: 1.5em">{{ status }}</span>
+{% for item in items %}
+    <a style="color:black" href="{{ url }}item/{{ item.id }}"><img width="100px" height="100px" src="/media/{{ item.picture }}">
+        <span>{{ item.name }}       <i>Price:{{ item.price }}</i></span></a>
+    <br>
+    <span style="margin-left:1%">Shop: {{ item.shop.shop_name }}</span><hr>
+{% endfor %}
+</body>
+</html>

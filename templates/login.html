@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="icon" href="/media/favicon.ico"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="/static/isSelenium.js"></script>
+</head>
+{% include 'nav_bar.html' %}
+<body>
+<style>
+    h2{
+        margin-top: 5vh;
+        text-align: center;
+    }
+    .input_{
+        text-align: center;
+    }
+
+    .password{
+        margin-top:10px;
+
+    }
+    .confirm{
+        width:15vw;
+    }
+    button{
+        margin-top:10px;
+    }
+</style>
+<h2>Login</h2>
+<div class="input_">
+    <form method="post">
+        <input type="text" name="username" placeholder="Username" style="width:15vw" class="username" required><br>
+        <input type="password" name="password" placeholder="Password" style="width:15vw" class="password" required><br>
+        <button class="btn btn-success confirm">Login</button>
+    </form>
+    <button class="btn btn-outline-primary" onclick="window.location.href='{{ url }}register.html/'">Register Here</button><br>
+    <span style="font-size: 1.2em">{{ status }}</span>
+</div>
+
+</body>
+</html>

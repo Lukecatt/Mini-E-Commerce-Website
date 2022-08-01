@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/media/favicon.ico"/>
+    <title>Shop Items</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="/static/isSelenium.js"></script>
+</head>
+{% include 'nav_bar.html' %}
+<body>
+<span>
+    <h1 style="margin:1%">{{ request.session.shop_name }}</h1>
+    <button class="btn btn-success" onclick="window.location.href='{{ url }}add_item.html/'" style="margin-left:1%">Add Item</button><br><hr>
+</span>
+{% for item in items %}
+    {% if item.isSelling %}
+    <a style="color:black" href="{{ url }}item/{{ item.id }}"><img width="100px" height="100px" src="/media/{{ item.picture }}">
+        <span>{{ item.name }}     <i>Price:{{ item.price }}</i></span></a><button class="btn btn-success" style="float:right;margin-right:15px" onclick="window.location.href='{{ url }}edit_item/{{ item.id }}'">Edit</button>
+        {% if item.stock > 0%}
+        , Stock: {{ item.stock }}
+        {% else %}
+        <span style="color:red">, Stock: {{ item.stock }}</span>
+        {% endif %}
+    {% else %}
+        <a style="color:lightslategray" href="{{ url }}item/{{ item.id }}"><img width="100px" height="100px" src="/media/{{ item.picture }}">
+        <span>{{ item.name }} (Removed)      <i>Price:{{ item.price }}</i></span></a><button class="btn btn-success" style="float:right;margin-right:15px" onclick="window.location.href='{{ url }}edit_item/{{ item.id }}'">Edit</button><br>
+        Stock: {{ item.stock }}
+    {% endif %}
+    <br><hr>
+{% endfor %}
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Order</title>
+    <link rel="icon" href="/media/favicon.ico"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/media/favicon.ico"/>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="/static/isSelenium.js"></script>
+</head>
+{% include 'nav_bar.html' %}
+<button class="btn btn-success" onclick="window.history.back(-1);" style="position:absolute;left:10px;">Back</button>
+<script>
+    function qty(c)
+    {
+        c.value = c.value.replace('-','');
+        if (c.value>{{ item.stock }})
+        {
+            c.value = {{ item.stock }};
+        }
+        if (c.value<1)
+        {
+            c.value = 1;
+        }
+        if (c.value>100)
+        {
+            c.value = 100;
+        }
+        var price = c.value*{{ item.price }};
+        document.getElementById("totalPrice").innerText = price.toFixed(2);
+    }
+</script>
+<body>
+<div style="margin-left:40vw">
+    <h1>{{ item }}</h1>
+    <div style="font-size: 2em">Price: {{ item.price }}</div>
+    Total Price: <span id="totalPrice" style="font-size: 1.8em">{{ item.price }}</span>
+    <form method="post">
+        <span id="qty">Count: <input type="number" name="count" oninput="qty(this)" value="1" style="margin-bottom:10px" max="{{ item.stock }}"><br></span>
+        <button class="btn btn-primary" style="margin-top: 10px">Confirm</button>
+    </form><br>
+{{ status }}
+</div>
+</body>
+</html>
